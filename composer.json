@@ -1,0 +1,24 @@
+{
+    "name": "rhumsaa/vnderror",
+    "description": "application/vnd.error builder / formatter for PHP 5.3+",
+    "type": "library",
+    "keywords": ["error", "hypermedia", "xml", "json", "rest"],
+    "homepage": "https://github.com/ramsey/vnderror",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ben Ramsey",
+            "homepage": "http://benramsey.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/ramsey/vnderror/issues",
+        "source": "https://github.com/ramsey/vnderror"
+    },
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "autoload": {
+        "psr-0": {"Rhumsaa\\VndError": "src/"}
+    }
+}
