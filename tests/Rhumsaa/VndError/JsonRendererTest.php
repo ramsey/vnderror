@@ -109,7 +109,6 @@ class JsonRendererTest extends \PHPUnit_Framework_TestCase
         }
     }
 ]
-
 EOD;
 
         $renderer = new JsonRenderer();
