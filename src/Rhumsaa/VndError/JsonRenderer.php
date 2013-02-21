@@ -51,13 +51,27 @@ class JsonRenderer implements Renderer
     {
         $data = array();
 
-        foreach($links as $rel => $link) {
-            $data[$rel] = array('href' => $link['uri']);
-            if (!is_null($link['title'])) {
-                $data[$rel]['title'] = $link['title'];
-            }
-            foreach ($link['attributes'] as $attribute => $value) {
-                $data[$rel][$attribute] = $value;
+        foreach($links as $rel => $links) {
+            if (count($links) === 1) {
+                $data[$rel] = array('href' => $links[0]['uri']);
+                if (!is_null($links[0]['title'])) {
+                    $data[$rel]['title'] = $links[0]['title'];
+                }
+                foreach ($links[0]['attributes'] as $attribute => $value) {
+                    $data[$rel][$attribute] = $value;
+                }
+            } else {
+                $data[$rel] = array();
+                foreach ($links as $link) {
+                    $item = array('href' => $link['uri']);
+                    if (!is_null($link['title'])) {
+                        $item['title'] = $link['title'];
+                    }
+                    foreach ($link['attributes'] as $attribute => $value) {
+                        $item[$attribute] = $value;
+                    }
+                    $data[$rel][] = $item;
+                }
             }
         }
 

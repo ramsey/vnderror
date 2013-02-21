@@ -67,7 +67,7 @@ class Error
      */
     public function addLink($rel, $uri, $title = null, array $attributes = array())
     {
-        $this->links[$rel] = array(
+        $this->links[$rel][] = array(
             'uri' => $uri,
             'title' => $title,
             'attributes' => $attributes,

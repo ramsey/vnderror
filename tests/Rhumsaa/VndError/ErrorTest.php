@@ -41,7 +41,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
         ));
 
         $error->addLink(
-            'describes',
+            'describedby',
             $links2['uri'],
             $links2['title'],
             $links2['attributes']
@@ -49,8 +49,8 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
 
         $returnedLinks = $error->getLinks();
 
-        $this->assertEquals($links1, $returnedLinks['describedby']);
-        $this->assertEquals($links2, $returnedLinks['describes']);
+        $this->assertEquals($links1, $returnedLinks['describedby'][0]);
+        $this->assertEquals($links2, $returnedLinks['describedby'][1]);
     }
 
     /**
