@@ -23,6 +23,12 @@ class XmlRendererTest extends \PHPUnit_Framework_TestCase
             array('hreflang' => 'en-US')
         );
         $errors[0]->addLink(
+            'describedby',
+            'http://example.org/error/1234-5678.en-MX',
+            'Este es un error',
+            array('hreflang' => 'es-MX')
+        );
+        $errors[0]->addLink(
             'help',
             'http://example.org/help',
             'Find more "help" here'
@@ -49,7 +55,7 @@ class XmlRendererTest extends \PHPUnit_Framework_TestCase
     {
         $expectedXml = <<<EOD
 <?xml version="1.0" encoding="utf-8"?>
-<errors><error logref="1234-5678"><message>This is an "error" message 1</message><link rel="describedby" href="http://example.org/error/1234-5678.en-US" title="This is an error" hreflang="en-US"/><link rel="help" href="http://example.org/help" title="Find more &quot;help&quot; here"/></error><error logref="5678-1234"><message>This is an error message 2</message><link rel="describedby" href="http://example.org/error/5678-1234" title="This is an error" hreflang="en-US"/></error></errors>
+<errors><error logref="1234-5678"><message>This is an "error" message 1</message><link rel="describedby" href="http://example.org/error/1234-5678.en-US" title="This is an error" hreflang="en-US"/><link rel="describedby" href="http://example.org/error/1234-5678.en-MX" title="Este es un error" hreflang="es-MX"/><link rel="help" href="http://example.org/help" title="Find more &quot;help&quot; here"/></error><error logref="5678-1234"><message>This is an error message 2</message><link rel="describedby" href="http://example.org/error/5678-1234" title="This is an error" hreflang="en-US"/></error></errors>
 
 EOD;
 
@@ -68,6 +74,7 @@ EOD;
   <error logref="1234-5678">
     <message>This is an "error" message 1</message>
     <link rel="describedby" href="http://example.org/error/1234-5678.en-US" title="This is an error" hreflang="en-US"/>
+    <link rel="describedby" href="http://example.org/error/1234-5678.en-MX" title="Este es un error" hreflang="es-MX"/>
     <link rel="help" href="http://example.org/help" title="Find more &quot;help&quot; here"/>
   </error>
   <error logref="5678-1234">
