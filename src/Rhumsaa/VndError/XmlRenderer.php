@@ -59,18 +59,16 @@ class XmlRenderer implements Renderer
         $messageNode = new \DOMElement('message', $error->getMessage());
         $errorNode->appendChild($messageNode);
 
-        foreach ($error->getLinks() as $rel => $links) {
-            foreach ($links as $link) {
-                $linkNode = new \DOMElement('link');
-                $linkNode = $errorNode->appendChild($linkNode);
-                $linkNode->setAttribute('rel', $rel);
-                $linkNode->setAttribute('href', $link['uri']);
-                if ($link['title'] !== null) {
-                    $linkNode->setAttribute('title', $link['title']);
-                }
-                foreach ($link['attributes'] as $key => $value) {
-                    $linkNode->setAttribute($key, $value);
-                }
+        foreach ($error->getLinks() as $rel => $link) {
+            $linkNode = new \DOMElement('link');
+            $linkNode = $errorNode->appendChild($linkNode);
+            $linkNode->setAttribute('rel', $rel);
+            $linkNode->setAttribute('href', $link['uri']);
+            if ($link['title'] !== null) {
+                $linkNode->setAttribute('title', $link['title']);
+            }
+            foreach ($link['attributes'] as $key => $value) {
+                $linkNode->setAttribute($key, $value);
             }
         }
 

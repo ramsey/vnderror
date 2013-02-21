@@ -26,12 +26,19 @@ class JsonRenderer implements Renderer
     public function render(VndError $vndError, $pretty = false)
     {
         $options = 0;
+        $supports_json_pretty_print = (version_compare(PHP_VERSION, '5.4.0') >= 0); 
 
-        if (version_compare(PHP_VERSION, '5.4.0') >= 0 and $pretty) {
+        if ($supports_json_pretty_print and $pretty) {
             $options = JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT;
         }
+        
+        $json_string = json_encode($this->buildArrayForJson($vndError), $options);
 
-        return json_encode($this->buildArrayForJson($vndError), $options);
+        if (!$supports_json_pretty_print and $pretty) {
+            $json_string = $this->indentJSON($json_string);
+        }
+
+        return $json_string; 
     }
 
     /**
@@ -44,27 +51,13 @@ class JsonRenderer implements Renderer
     {
         $data = array();
 
-        foreach($links as $rel => $links) {
-            if (count($links) === 1) {
-                $data[$rel] = array(array('href' => $links[0]['uri']));
-                if (!is_null($links[0]['title'])) {
-                    $data[$rel][0]['title'] = $links[0]['title'];
-                }
-                foreach ($links[0]['attributes'] as $attribute => $value) {
-                    $data[$rel][0][$attribute] = $value;
-                }
-            } else {
-                $data[$rel] = array();
-                foreach ($links as $link) {
-                    $item = array('href' => $link['uri']);
-                    if (!is_null($link['title'])) {
-                        $item['title'] = $link['title'];
-                    }
-                    foreach ($link['attributes'] as $attribute => $value) {
-                        $item[$attribute] = $value;
-                    }
-                    $data[$rel][] = $item;
-                }
+        foreach($links as $rel => $link) {
+            $data[$rel] = array('href' => $link['uri']);
+            if (!is_null($link['title'])) {
+                $data[$rel]['title'] = $link['title'];
+            }
+            foreach ($link['attributes'] as $attribute => $value) {
+                $data[$rel][$attribute] = $value;
             }
         }
 
@@ -96,4 +89,63 @@ class JsonRenderer implements Renderer
 
         return $data;
     }
+    
+    /**
+     * Indents a flat JSON string to make it more human-readable.
+     * @param  string $json The original JSON string to process.
+     * @return string Indented version of the original JSON string.
+     *
+     * via http://recursive-design.com/blog/2008/03/11/format-json-with-php/
+     * Slightly modified to add spaces after colons and remove escaped slashes.
+     */
+    protected function indentJSON($json)
+    {
+        $result      = '';
+        $pos         = 0;
+        $strLen      = strlen($json);
+        $indentStr   = '    ';
+        $newLine     = "\n";
+        $prevChar    = '';
+        $prevPrevChar    = '';
+        $outOfQuotes = true;
+        for ($i=0; $i<=$strLen; $i++) {
+            // Grab the next character in the string.
+            $char = substr($json, $i, 1);
+            // Are we inside a quoted string?
+            if ($char == '"' && $prevChar != '\\') {
+                $outOfQuotes = !$outOfQuotes;
+                // If this character is the end of an element,
+                // output a new line and indent the next line.
+            } elseif (($char == '}' || $char == ']') && $outOfQuotes) {
+                $result .= $newLine;
+                $pos --;
+                for ($j=0; $j<$pos; $j++) {
+                    $result .= $indentStr;
+                }
+            }
+            // Add the character to the result string.
+            $result .= $char;
+            
+            if ($char == ':' && $prevChar == '"' && $prevPrevChar != '\\') {
+                $result .= ' ';
+            }
+            
+            // If the last character was the beginning of an element,
+            // output a new line and indent the next line.
+            if (($char == ',' || $char == '{' || $char == '[') && $outOfQuotes) {
+                $result .= $newLine;
+                if ($char == '{' || $char == '[') {
+                    $pos ++;
+                }
+                for ($j = 0; $j < $pos; $j++) {
+                    $result .= $indentStr;
+                }
+            }
+            $prevPrevChar = $prevChar;
+            $prevChar = $char;
+        }
+    
+        return str_replace('\/', '/', $result);
+    }    
+    
 }
