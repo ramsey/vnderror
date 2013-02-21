@@ -26,19 +26,19 @@ class JsonRenderer implements Renderer
     public function render(VndError $vndError, $pretty = false)
     {
         $options = 0;
-        $supports_json_pretty_print = (version_compare(PHP_VERSION, '5.4.0') >= 0); 
+        $supportsJsonPrettyPrint = (version_compare(PHP_VERSION, '5.4.0') >= 0); 
 
-        if ($supports_json_pretty_print and $pretty) {
+        if ($supportsJsonPrettyPrint and $pretty) {
             $options = JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT;
         }
         
-        $json_string = json_encode($this->buildArrayForJson($vndError), $options);
+        $json = json_encode($this->buildArrayForJson($vndError), $options);
 
-        if (!$supports_json_pretty_print and $pretty) {
-            $json_string = $this->indentJSON($json_string);
+        if (!$supportsJsonPrettyPrint and $pretty) {
+            $json = $this->indentJSON($json);
         }
 
-        return $json_string; 
+        return $json; 
     }
 
     /**
