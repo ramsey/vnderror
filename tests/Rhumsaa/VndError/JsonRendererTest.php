@@ -54,7 +54,7 @@ class JsonRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testRender()
     {
-        $expectedJson = '[{"logref":"1234-5678","message":"This is an error message 1","_links":{"describedby":[{"href":"http:\/\/example.org\/error\/1234-5678.en-US","title":"This is an error","hreflang":"en-US"},{"href":"http:\/\/example.org\/error\/1234-5678.en-MX","title":"Este es un error","hreflang":"es-MX"}],"help":[{"href":"http:\/\/example.org\/help","title":"Find more help here"}]}},{"logref":"5678-1234","message":"This is an error message 2","_links":{"describedby":[{"href":"http:\/\/example.org\/error\/5678-1234","title":"This is an error","hreflang":"en-US"}]}}]';
+        $expectedJson = '[{"logref":"1234-5678","message":"This is an error message 1","_links":{"describedby":[{"href":"http:\/\/example.org\/error\/1234-5678.en-US","title":"This is an error","hreflang":"en-US"},{"href":"http:\/\/example.org\/error\/1234-5678.en-MX","title":"Este es un error","hreflang":"es-MX"}],"help":{"href":"http:\/\/example.org\/help","title":"Find more help here"}}},{"logref":"5678-1234","message":"This is an error message 2","_links":{"describedby":{"href":"http:\/\/example.org\/error\/5678-1234","title":"This is an error","hreflang":"en-US"}}}]';
 
         $renderer = new JsonRenderer();
         $this->assertEquals($expectedJson, $renderer->render($this->vndError));
@@ -65,9 +65,6 @@ class JsonRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderWithPrettyPrint()
     {
-        if (!version_compare(PHP_VERSION, '5.4.0', '>=')) {
-            $this->markTestSkipped('Running a version of PHP earlier than 5.4');
-        }
 
         $expectedJson = <<<EOD
 [
@@ -87,25 +84,21 @@ class JsonRendererTest extends \PHPUnit_Framework_TestCase
                     "hreflang": "es-MX"
                 }
             ],
-            "help": [
-                {
-                    "href": "http://example.org/help",
-                    "title": "Find more help here"
-                }
-            ]
+            "help": {
+                "href": "http://example.org/help",
+                "title": "Find more help here"
+            }
         }
     },
     {
         "logref": "5678-1234",
         "message": "This is an error message 2",
         "_links": {
-            "describedby": [
-                {
-                    "href": "http://example.org/error/5678-1234",
-                    "title": "This is an error",
-                    "hreflang": "en-US"
-                }
-            ]
+            "describedby": {
+                "href": "http://example.org/error/5678-1234",
+                "title": "This is an error",
+                "hreflang": "en-US"
+            }
         }
     }
 ]
