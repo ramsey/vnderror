@@ -9,5 +9,5 @@ if (!file_exists(dirname(__DIR__) . DIRECTORY_SEPARATOR . '/vendor/autoload.php'
 }
 
 // Include the Composer autoloader
-include realpath(dirname(__FILE__) . '/../vendor/autoload.php');
-
+$loader = include realpath(dirname(__FILE__) . '/../vendor/autoload.php');
+$loader->add('Rhumsaa\\Vnderror', __DIR__);
