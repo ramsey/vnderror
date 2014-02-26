@@ -4,72 +4,87 @@ namespace Rhumsaa\VndError;
 class VndErrorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var array
+     * @covers Rhumsaa\VndError\VndError::__construct
+     * @covers Rhumsaa\VndError\VndError::getData
+     * @covers Rhumsaa\VndError\VndError::getMessage
      */
-    protected $errors = array();
-
-    /**
-     * @var VndError
-     */
-    protected $object;
-
-    /**
-     * Sets up the test case
-     */
-    protected function setUp()
+    public function testVndErrorWithMessageOnly()
     {
-        $this->object = new VndError();
-        $this->errors[0] = new Error('1234-5678', 'This is an error message 1');
-        $this->errors[1] = new Error('5678-1234', 'This is an error message 2');
+        $vnderror = new VndError('Validation failed');
+
+        $this->assertEquals('Validation failed', $vnderror->getMessage());
+        $this->assertEquals(
+            array('message' => 'Validation failed'),
+            json_decode($vnderror->asJson(), true)
+        );
     }
 
     /**
-     * @covers Rhumsaa\VndError\VndError::addError
+     * @covers Rhumsaa\VndError\VndError::__construct
+     * @covers Rhumsaa\VndError\VndError::getData
+     * @covers Rhumsaa\VndError\VndError::getMessage
+     * @covers Rhumsaa\VndError\VndError::getLogref
      */
-    public function testAddErrorOfTypeError()
+    public function testVndErrorWithMessageAndLogref()
     {
-        $this->assertInstanceOf('Rhumsaa\VndError\Error', $this->object->addError($this->errors[0]));
+        $vnderror = new VndError('Validation failed', 12345);
+
+        $this->assertEquals('Validation failed', $vnderror->getMessage());
+        $this->assertEquals(12345, $vnderror->getLogref());
+        $this->assertEquals(
+            array('logref' => 12345, 'message' => 'Validation failed'),
+            json_decode($vnderror->asJson(), true)
+        );
     }
 
     /**
-     * @covers Rhumsaa\VndError\VndError::addError
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Missing required message
+     * @covers Rhumsaa\VndError\VndError::__construct
+     * @covers Rhumsaa\VndError\VndError::getData
+     * @covers Rhumsaa\VndError\VndError::getMessage
+     * @covers Rhumsaa\VndError\VndError::getLogref
+     * @covers Rhumsaa\VndError\VndError::setMessage
+     * @covers Rhumsaa\VndError\VndError::setLogref
      */
-    public function testAddErrorWithLogRefOnly()
+    public function testVndErrorWithLinks()
     {
-        $error = $this->object->addError('54321');
-    }
+        $vnderror = new VndError('Validation failed', 12345);
+        $vnderror->addLink('help', 'http://.../', array('title' => 'Error Information'));
+        $vnderror->addLink('describes', 'http://.../', array('title' => 'Error Description'));
 
-    /**
-     * @covers Rhumsaa\VndError\VndError::addError
-     */
-    public function testAddErrorWithLogRefAndMessage()
-    {
-        $this->assertInstanceOf('Rhumsaa\VndError\Error', $this->object->addError('54321', 'Message'));
-    }
+        $this->assertNull($vnderror->setMessage('New validation failed'));
+        $this->assertNull($vnderror->setLogref('foo-id'));
+        $this->assertEquals('New validation failed', $vnderror->getMessage());
+        $this->assertEquals('foo-id', $vnderror->getLogref());
+        $this->assertEquals(
+            array(
+                'logref' => 'foo-id',
+                'message' => 'New validation failed',
+                '_links' => array(
+                    'help' => array(
+                        'href' => 'http://.../',
+                        'title' => 'Error Information',
+                    ),
+                    'describes' => array(
+                        'href' => 'http://.../',
+                        'title' => 'Error Description',
+                    ),
+                ),
+            ),
+            json_decode($vnderror->asJson(), true)
+        );
 
-    /**
-     * @covers Rhumsaa\VndError\VndError::getErrors
-     */
-    public function testGetErrors()
-    {
-        $this->assertInternalType('array', $this->object->getErrors());
-    }
+        $sxe = new \SimpleXMLElement($vnderror->asXml());
 
-    /**
-     * @covers Rhumsaa\VndError\VndError::asJson
-     */
-    public function testAsJson()
-    {
-        $this->assertInternalType('string', $this->object->asJson());
-    }
+        $this->assertInstanceOf('SimpleXMLElement', $sxe);
+        $this->assertEquals('New validation failed', $sxe->message);
+        $this->assertEquals('foo-id', $sxe['logref']);
 
-    /**
-     * @covers Rhumsaa\VndError\VndError::asXml
-     */
-    public function testAsXml()
-    {
-        $this->assertInternalType('string', $this->object->asXml());
+        $this->assertEquals('help', $sxe->link[0]['rel']);
+        $this->assertEquals('http://.../', $sxe->link[0]['href']);
+        $this->assertEquals('Error Information', $sxe->link[0]['title']);
+
+        $this->assertEquals('describes', $sxe->link[1]['rel']);
+        $this->assertEquals('http://.../', $sxe->link[1]['href']);
+        $this->assertEquals('Error Description', $sxe->link[1]['title']);
     }
 }
