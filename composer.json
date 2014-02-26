@@ -23,6 +23,6 @@
         "phpunit/phpunit": "~3.7"
     },
     "autoload": {
-        "psr-4": {"Rhumsaa\\VndError\\": "src/Rhumsaa/VndError/"}
+        "psr-4": {"Rhumsaa\\VndError\\": "src/"}
     }
 }
