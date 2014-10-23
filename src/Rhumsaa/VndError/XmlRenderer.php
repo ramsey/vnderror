@@ -26,9 +26,10 @@ class XmlRenderer implements Renderer
     public function render(VndError $vndError, $pretty = false)
     {
         $doc = new \DOMDocument('1.0', 'utf-8');
-        $rootNode = new \DOMElement('errors');
+        $rootNode = new \DOMElement('resource');
         $rootNode = $doc->appendChild($rootNode);
-
+        $totalNode = new \DOMElement('total',count($vndError->getErrors()));
+        $totalNode = $rootNode->appendChild($totalNode);
         foreach ($vndError->getErrors() as $error) {
             $errorDoc = $this->getDomForError($error);
             $errorNode = $doc->importNode($errorDoc->documentElement, true);
@@ -52,7 +53,7 @@ class XmlRenderer implements Renderer
     protected function getDomForError(Error $error)
     {
         $doc = new \DOMDocument('1.0', 'utf-8');
-        $errorNode = new \DOMElement('error');
+        $errorNode = new \DOMElement('resource');
         $errorNode = $doc->appendChild($errorNode);
         $errorNode->setAttribute('logref', $error->getLogRef());
 

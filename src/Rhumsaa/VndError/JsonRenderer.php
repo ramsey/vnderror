@@ -86,7 +86,12 @@ class JsonRenderer implements Renderer
      */
     protected function buildArrayForJson(VndError $vndError)
     {
-        $data = array();
+        $data = array(
+                'total' => count($vndError->getErrors()),
+                '_embedded' => array(
+                        'errors' => array()
+                    )
+            );
 
         foreach ($vndError->getErrors() as $error) {
             $dataError = array(
@@ -98,7 +103,7 @@ class JsonRenderer implements Renderer
                 $dataError['_links'] = $this->buildLinksForJson($error->getLinks());
             }
 
-            $data[] = $dataError;
+            $data['_embedded']['errors'][] = $dataError;
         }
 
         return $data;
