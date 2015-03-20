@@ -1,3 +1,6 @@
+* 3.0.0 (2015-03-20)
+  * Change library namespace to "Ramsey"
+  * Change package name to "ramsey/vnderror"
 * 2.0.0 (2014-02-26)
   * BC-breaking release, targeting version [e88d5cd1ad][] of the vnd.error specification
   * VndError is now simplified and extends Nocarrier\Hal for much of its functionality
