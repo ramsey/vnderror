@@ -1,11 +1,13 @@
-# Rhumsaa\VndError for PHP
+# Ramsey\VndError for PHP
 
-[![Build Status](https://secure.travis-ci.org/ramsey/vnderror.png)](http://travis-ci.org/ramsey/vnderror)
-[![Latest Stable Version](https://poser.pugx.org/rhumsaa/vnderror/v/stable.png)](https://packagist.org/packages/rhumsaa/vnderror)
-[![Latest Unstable Version](https://poser.pugx.org/rhumsaa/vnderror/v/unstable.png)](https://packagist.org/packages/rhumsaa/vnderror)
-[![Total Downloads](https://poser.pugx.org/rhumsaa/vnderror/downloads.png)](https://packagist.org/packages/rhumsaa/vnderror)
+[![Build Status](https://travis-ci.org/ramsey/vnderror.svg?branch=master)](https://travis-ci.org/ramsey/vnderror)
+[![Coverage Status](https://coveralls.io/repos/ramsey/vnderror/badge.svg)](https://coveralls.io/r/ramsey/vnderror)
+[![Latest Stable Version](https://poser.pugx.org/ramsey/vnderror/v/stable.svg)](https://packagist.org/packages/ramsey/vnderror)
+[![Total Downloads](https://poser.pugx.org/ramsey/vnderror/downloads.svg)](https://packagist.org/packages/ramsey/vnderror)
+[![Latest Unstable Version](https://poser.pugx.org/ramsey/vnderror/v/unstable.svg)](https://packagist.org/packages/ramsey/vnderror)
+[![License](https://poser.pugx.org/ramsey/vnderror/license.svg)](https://packagist.org/packages/ramsey/vnderror)
 
-Rhumsaa\VndError is a PHP implementation of the [vnd.error][] specification.
+Ramsey\VndError is a PHP implementation of the [vnd.error][] specification.
 This implementation currently targets the [e88d5cd1ad][] revision of the
 specification.
 
@@ -24,7 +26,7 @@ Use `application/vnd.error+json` or `application/vnd.error+xml` media types
 to communicate errors with HTTP 4xx and 5xx status codes.
 
 ```php
-use Rhumsaa\VndError\VndError;
+use Ramsey\VndError\VndError;
 
 $vndError = new VndError('Validation failed', 42);
 $vndError->addLink('help', 'http://.../', array('title' => 'Error Information'));
@@ -80,7 +82,7 @@ Results in:
 The preferred method of installation is via [Composer][]:
 
 ```bash
-composer.phar require "rhumsaa/vnderror=~2.0"
+php composer.phar require ramsey/vnderror
 ```
 
 

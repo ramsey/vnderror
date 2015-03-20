@@ -1,15 +1,15 @@
 <?php
 /**
- * This file is part of the Rhumsaa\VndError library
+ * This file is part of the Ramsey\VndError library
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @copyright Copyright (c) 2012-2014 Ben Ramsey <http://benramsey.com>
+ * @copyright Copyright (c) Ben Ramsey (http://benramsey.com)
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-namespace Rhumsaa\VndError;
+namespace Ramsey\VndError;
 
 use Nocarrier\Hal;
 
@@ -33,8 +33,11 @@ class VndError extends Hal
     /**
      * Creates a new vnd.error document
      *
-     * @param string $message For expressing a human readable message related to the current error which may be displayed to the user of the api.
-     * @param string $logref For expressing a (numeric/alpha/alphanumeric) identifier to refer to the specific error on the server side for logging purposes (i.e. a request number).
+     * @param string $message For expressing a human readable message related
+     *     to the current error which may be displayed to the user of the api.
+     * @param string $logref For expressing a (numeric/alpha/alphanumeric)
+     *     identifier to refer to the specific error on the server side for
+     *     logging purposes (i.e. a request number).
      */
     public function __construct($message, $logref = null)
     {

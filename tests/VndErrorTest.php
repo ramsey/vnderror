@@ -1,12 +1,12 @@
 <?php
-namespace Rhumsaa\VndError;
+namespace Ramsey\VndError;
 
 class VndErrorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Rhumsaa\VndError\VndError::__construct
-     * @covers Rhumsaa\VndError\VndError::getData
-     * @covers Rhumsaa\VndError\VndError::getMessage
+     * @covers Ramsey\VndError\VndError::__construct
+     * @covers Ramsey\VndError\VndError::getData
+     * @covers Ramsey\VndError\VndError::getMessage
      */
     public function testVndErrorWithMessageOnly()
     {
@@ -20,10 +20,10 @@ class VndErrorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Rhumsaa\VndError\VndError::__construct
-     * @covers Rhumsaa\VndError\VndError::getData
-     * @covers Rhumsaa\VndError\VndError::getMessage
-     * @covers Rhumsaa\VndError\VndError::getLogref
+     * @covers Ramsey\VndError\VndError::__construct
+     * @covers Ramsey\VndError\VndError::getData
+     * @covers Ramsey\VndError\VndError::getMessage
+     * @covers Ramsey\VndError\VndError::getLogref
      */
     public function testVndErrorWithMessageAndLogref()
     {
@@ -38,12 +38,12 @@ class VndErrorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Rhumsaa\VndError\VndError::__construct
-     * @covers Rhumsaa\VndError\VndError::getData
-     * @covers Rhumsaa\VndError\VndError::getMessage
-     * @covers Rhumsaa\VndError\VndError::getLogref
-     * @covers Rhumsaa\VndError\VndError::setMessage
-     * @covers Rhumsaa\VndError\VndError::setLogref
+     * @covers Ramsey\VndError\VndError::__construct
+     * @covers Ramsey\VndError\VndError::getData
+     * @covers Ramsey\VndError\VndError::getMessage
+     * @covers Ramsey\VndError\VndError::getLogref
+     * @covers Ramsey\VndError\VndError::setMessage
+     * @covers Ramsey\VndError\VndError::setLogref
      */
     public function testVndErrorWithLinks()
     {
