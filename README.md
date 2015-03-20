@@ -1,7 +1,7 @@
 # Ramsey\VndError for PHP
 
 [![Build Status](https://travis-ci.org/ramsey/vnderror.svg?branch=master)](https://travis-ci.org/ramsey/vnderror)
-[![Coverage Status](https://coveralls.io/repos/ramsey/vnderror/badge.svg)](https://coveralls.io/r/ramsey/vnderror)
+[![Coverage Status](https://coveralls.io/repos/ramsey/vnderror/badge.svg?branch=master)](https://coveralls.io/r/ramsey/vnderror)
 [![Latest Stable Version](https://poser.pugx.org/ramsey/vnderror/v/stable.svg)](https://packagist.org/packages/ramsey/vnderror)
 [![Total Downloads](https://poser.pugx.org/ramsey/vnderror/downloads.svg)](https://packagist.org/packages/ramsey/vnderror)
 [![Latest Unstable Version](https://poser.pugx.org/ramsey/vnderror/v/unstable.svg)](https://packagist.org/packages/ramsey/vnderror)
