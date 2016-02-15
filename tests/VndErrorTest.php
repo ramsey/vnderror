@@ -87,4 +87,52 @@ class VndErrorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://.../', $sxe->link[1]['href']);
         $this->assertEquals('Error Description', $sxe->link[1]['title']);
     }
+
+    /**
+     * Test for Issue #4
+     * @link https://github.com/ramsey/vnderror/issues/4
+     */
+    public function testFromJson()
+    {
+        $sample = <<<JSON
+{
+    "message": "New validation failed",
+    "logref": "foo-id",
+    "_links": {
+        "help": {
+            "href": "http:\/\/...\/",
+            "title": "Error Information"
+        },
+        "describes": {
+            "href": "http:\/\/...\/",
+            "title": "Error Description"
+        }
+    }
+}
+JSON;
+
+        $vndError = VndError::fromJson($sample);
+
+        $this->assertInstanceOf('Ramsey\\VndError\\VndError', $vndError);
+    }
+
+    /**
+     * Test for Issue #4
+     * @link https://github.com/ramsey/vnderror/issues/4
+     */
+    public function testFromXml()
+    {
+        $sample = <<<XML
+<?xml version="1.0"?>
+<resource logref="foo-id">
+    <link rel="help" href="http://.../" title="Error Information"/>
+    <link rel="describes" href="http://.../" title="Error Description"/>
+    <message>New validation failed</message>
+</resource>
+XML;
+
+        $vndError = VndError::fromXml($sample);
+
+        $this->assertInstanceOf('Ramsey\\VndError\\VndError', $vndError);
+    }
 }
