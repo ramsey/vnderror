@@ -4,7 +4,8 @@
 
 _Released 2016-02-15_
 
-* Lock this library to versions of nocarrier/hal >=0.9.4 and <0.9.7 (fixes #4).
+* Lock this library to versions of nocarrier/hal >=0.9.4 and <0.9.7 (fixes #4)
+* Optimize tests and test lowest (as well as highest) package requirements
 
 ## 3.0.0
 
