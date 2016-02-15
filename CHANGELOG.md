@@ -1,5 +1,11 @@
 # Ramsey\Vnderror Changelog
 
+## 3.0.1
+
+_Released 2016-02-15_
+
+* Lock this library to versions of nocarrier/hal >=0.9.4 and <0.9.7 (fixes #4).
+
 ## 3.0.0
 
 _Released 2015-03-20_
