@@ -1,5 +1,7 @@
 <?php
-namespace Ramsey\VndError;
+namespace Ramsey\VndError\Test;
+
+use Ramsey\VndError\VndError;
 
 class VndErrorTest extends \PHPUnit_Framework_TestCase
 {
