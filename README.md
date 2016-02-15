@@ -1,4 +1,4 @@
-# Ramsey\VndError for PHP
+# ramsey/vnderror
 
 [![Build Status](https://travis-ci.org/ramsey/vnderror.svg?branch=master)](https://travis-ci.org/ramsey/vnderror)
 [![Coverage Status](https://coveralls.io/repos/ramsey/vnderror/badge.svg?branch=master)](https://coveralls.io/r/ramsey/vnderror)

@@ -1,4 +1,4 @@
-# Ramsey\Vnderror Changelog
+# ramsey/vnderror Changelog
 
 ## 3.0.1
 
