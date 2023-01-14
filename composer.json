@@ -11,6 +11,7 @@
             "homepage": "http://benramsey.com"
         }
     ],
+    "abandoned": true,
     "support": {
         "issues": "https://github.com/ramsey/vnderror/issues",
         "source": "https://github.com/ramsey/vnderror"

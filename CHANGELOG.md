@@ -1,5 +1,11 @@
 # ramsey/vnderror Changelog
 
+## 3.0.2
+
+_Released 2023-01-14_
+
+* Package marked as abandoned with no recommended replacement
+
 ## 3.0.1
 
 _Released 2016-02-15_
